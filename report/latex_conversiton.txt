@@ -1,0 +1,56 @@
+
+
+\begin{equation}
+\ell_{i, j}=-\log \frac{\exp \left(\operatorname{sim}\left(z_{i}, z_{j}\right) / \tau\right)}{\sum_{k=1}^{2 N} \mathbb{1}_{[k \neq i]} \exp \left(\operatorname{sim}\left(z_{i}, z_{k}\right) / \tau\right)}
+\end{equation}
+
+
+table 1
+
+
+
+\begin{tabular}{l|ccccc|c}
+\hline & \multicolumn{4}{|c|} { Color distortion strength } & \\
+Methods & $1 / 8$ & $1 / 4$ & $1 / 2$ & 1 & $1(+\text { Blur })$ & AutoAug \\
+\hline SimCLR & 59.6 & 61.0 & 62.6 & 63.2 & 64.5 & 61.1 \\
+Supervised & 77.0 & 76.7 & 76.5 & 75.7 & 75.4 & 77.1 \\
+\hline
+\end{tabular}
+
+
+table 2
+
+
+\begin{array}{c|c|c}
+\hline \text { Name } & \text { Negative loss function } & \text { Gradient w.r.t. } \boldsymbol{u} \\
+\hline \text { NT-Xent } & \boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau-\log \sum_{\boldsymbol{v} \in\left\{\boldsymbol{v}^{+}, \boldsymbol{v}^{-}\right\}} \exp \left(\boldsymbol{u}^{T} \boldsymbol{v} / \tau\right) & \left(1-\frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)}{Z(\boldsymbol{u})}\right) / \tau \boldsymbol{v}^{+}-\sum_{\boldsymbol{v}^{-}} \frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right)}{Z(\boldsymbol{u})} / \tau \boldsymbol{v}^{-} \\
+\text {NT-Logistic } & \log \sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)+\log \sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) & \left(\sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)\right) / \tau \boldsymbol{v}^{+}-\sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) / \tau \boldsymbol{v}^{-} \\
+\text {Margin Triplet } & -\max \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-}-\boldsymbol{u}^{T} \boldsymbol{v}^{+}+m, 0\right) & \boldsymbol{v}^{+}-\boldsymbol{v}^{-} \text {if } \boldsymbol{u}^{T} \boldsymbol{v}^{+}-\boldsymbol{u}^{T} \boldsymbol{v}^{-}<m \text { else } \mathbf{0} \\
+\hline
+\end{array}
+
+
+\begin{tabular}{c|c|c}
+\hline Name & Negative loss function & Gradient w.r.t. $\boldsymbol{u}$ \\
+\hline NT-Xent & $\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau-\log \sum_{\boldsymbol{v} \in\left\{\boldsymbol{v}^{+}, \boldsymbol{v}^{-}\right\}} \exp \left(\boldsymbol{u}^{T} \boldsymbol{v} / \tau\right)$ & $\left(1-\frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)}{Z(\boldsymbol{u})}\right) / \tau \boldsymbol{v}^{+}-\sum_{\boldsymbol{v}^{-}} \frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right)}{Z(\boldsymbol{u})} / \tau \boldsymbol{v}^{-}$ \\
+NT-Logistic & $\log \sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)+\log \sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right)$ & $\left(\sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)\right) / \tau \boldsymbol{v}^{+}-\sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) / \tau \boldsymbol{v}^{-}$ \\
+Margin Triplet & $-\max \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-}-\boldsymbol{u}^{T} \boldsymbol{v}^{+}+m, 0\right)$ & $\boldsymbol{v}^{+}-\boldsymbol{v}^{-}$ if $\boldsymbol{u}^{T} \boldsymbol{v}^{+}-\boldsymbol{u}^{T} \boldsymbol{v}^{-}<m$ else $\mathbf{0}$ \\
+\hline
+\end{tabular}
+
+
+$$\begin{array}{c|c|c}
+\hline \text { Name } & \text { Negative loss function } & \text { Gradient w.r.t. } \boldsymbol{u} \\
+\hline \text { NT-Xent } & \boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau-\log \sum_{\boldsymbol{v} \in\left\{\boldsymbol{v}^{+}, \boldsymbol{v}^{-}\right\}} \exp \left(\boldsymbol{u}^{T} \boldsymbol{v} / \tau\right) & \left(1-\frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)}{Z(\boldsymbol{u})}\right) / \tau \boldsymbol{v}^{+}-\sum_{\boldsymbol{v}^{-}} \frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right)}{Z(\boldsymbol{u})} / \tau \boldsymbol{v}^{-} \\
+\text {NT-Logistic } & \log \sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)+\log \sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) & \left(\sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)\right) / \tau \boldsymbol{v}^{+}-\sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) / \tau \boldsymbol{v}^{-} \\
+\text {Margin Triplet } & -\max \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-}-\boldsymbol{u}^{T} \boldsymbol{v}^{+}+m, 0\right) & \boldsymbol{v}^{+}-\boldsymbol{v}^{-} \text {if } \boldsymbol{u}^{T} \boldsymbol{v}^{+}-\boldsymbol{u}^{T} \boldsymbol{v}^{-}<m \text { else } \mathbf{0} \\
+\hline
+\end{array}$$
+
+\begin{equation}\begin{array}{c|c|c}
+\hline \text { Name } & \text { Negative loss function } & \text { Gradient w.r.t. } \boldsymbol{u} \\
+\hline \text { NT-Xent } & \boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau-\log \sum_{\boldsymbol{v} \in\left\{\boldsymbol{v}^{+}, \boldsymbol{v}^{-}\right\}} \exp \left(\boldsymbol{u}^{T} \boldsymbol{v} / \tau\right) & \left(1-\frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)}{Z(\boldsymbol{u})}\right) / \tau \boldsymbol{v}^{+}-\sum_{\boldsymbol{v}^{-}} \frac{\exp \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right)}{Z(\boldsymbol{u})} / \tau \boldsymbol{v}^{-} \\
+\text {NT-Logistic } & \log \sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)+\log \sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) & \left(\sigma\left(-\boldsymbol{u}^{T} \boldsymbol{v}^{+} / \tau\right)\right) / \tau \boldsymbol{v}^{+}-\sigma\left(\boldsymbol{u}^{T} \boldsymbol{v}^{-} / \tau\right) / \tau \boldsymbol{v}^{-} \\
+\text {Margin Triplet } & -\max \left(\boldsymbol{u}^{T} \boldsymbol{v}^{-}-\boldsymbol{u}^{T} \boldsymbol{v}^{+}+m, 0\right) & \boldsymbol{v}^{+}-\boldsymbol{v}^{-} \text {if } \boldsymbol{u}^{T} \boldsymbol{v}^{+}-\boldsymbol{u}^{T} \boldsymbol{v}^{-}<m \text { else } \mathbf{0} \\
+\hline
+\end{array}\end{equation}
